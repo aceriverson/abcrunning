@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Group
+{% endblock %}
+
+{% block main %}
+    <h2>Groups</h2>
+    <form action="/group" method="get">
+        <div class="form-group">
+            <select name="groupid">
+
+                {% for j in i %}
+
+                    <option value="{{ groupids[j] }}" style="width: 240px; text-align: center">{{ groupnames[j] }}</option>
+
+                {% endfor %}
+
+            </select>
+        </div>
+        <div>
+            <input type="hidden" name="page" value="{{ page1 }}">
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">View</button>
+        </div>
+    </form>
+    <br>
+    <h2>{{ name }}</h2>
+    <h5>{{ bio }}</h5>
+    <br>
+    {% if noshow == 0 %}
+    <h2>Activities</h2>
+    <div>
+        <table style="border: 1px solid #1C6EA4;">
+            <caption style="padding: 15px">
+                {% if page > 1 %}
+                <a href="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/group?groupid={{ groupid }}&page={{ backpage }}"><-back</a>
+                {% else %}
+                back
+                {% endif %}
+                <span style="display:inline-block; width: 5px;"></span>
+                <a href="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/group?groupid={{ groupid }}&page={{ nextpage }}">next-></a>
+            </caption>
+            <th style="background-color: #e3f2fd;">User</th>
+            <th style="background-color: #e3f2fd;">Activity</th>
+            <th style="background-color: #e3f2fd;">Type</th>
+            <th style="background-color: #e3f2fd;">Distance</th>
+            <th style="background-color: #e3f2fd;">Pace</th>
+            <th style="background-color: #e3f2fd;">Time</th>
+            <th style="background-color: #e3f2fd;">Date</th>
+            {% for l in k %}
+                <tr>
+                    <td style="background-color: white;"><a href="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/profile?userid={{ runuserids[l] }}&page=1">{{ runusernames[l] }}</a></td>
+                    <td style="background-color: white;">
+                        <a href="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/activity?activityid={{ ids[l] }}">{{ names[l] }}</a>
+                    </td>
+                    <td style="background-color: white;">{{ runtypes[l] }}</td>
+                    <td style="background-color: white;"><b>{{ distances[l] }}</b> mi</td>
+                    <td style="background-color: white;"><b>{{ paces[l] }}</b>/mi</td>
+                    <td style="background-color: white;"><b>{{ times[l] }}</b></td>
+                    <td style="background-color: white;">{{ timestamps[l] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    {% if noshow == 0 %}
+    <br>
+    <h6>
+        <form>
+            <div class="form-group">
+                Share:  <input type="text" value="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/group?groupid={{ groupid }}&page=1" readonly>
+            </div>
+            <div class="form-group">
+                Group ID:  <input type="text" value="{{ groupid }}" style="width: 50px; text-align: center" readonly>
+            </div>
+        </form>
+    </h6>
+    <br>
+    <div>
+        Group Admin: <a href="/profile?userid={{ adminid }}&page=1">{{ adminname[0]['username'] }}</a>
+    </div>
+    {% endif %}
+{% endblock %}

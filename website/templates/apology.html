@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <header>Error {{ top }}</header>
+    <p>{{ bottom }}</p>
+    <a href="#" onclick="history.go(-1)">Go Back</a>
+{% endblock %}

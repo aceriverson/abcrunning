@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Gear
+{% endblock %}
+
+{% block main %}
+    <div class="row">
+        <div class="column left">
+            <div>
+                {% if nicknames[0] %}
+                <h2>Active Gear</h2>
+                {% endif %}
+                {% if not nicknames[0] %}
+                {% if not retnicknames[0] %}
+                <p style="padding: 50px">Add gear to see your collection here!</p>
+                {% endif %}
+                {% endif %}
+                    {% for j in i %}
+
+                        <div style="padding: 5px;">
+                            <table style="padding: 9px 4px; border: 1px solid #1C6EA4; width: 500px; margin-left:auto; margin-right:auto; text-align: center">
+                                <tr>
+                                    <th colspan="3" style="background-color: #e3f2fd;">{{ nicknames[j] }}</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">{{ mileages[j] }} miles</td>
+                                    <td>{{ brands[j] }} {{ models[j] }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    {% endfor %}
+            </div>
+            <br>
+            <br>
+            <div>
+                {% if retnicknames[0] %}
+                <h2>Retired Gear</h2>
+                {% endif %}
+                    {% for l in k %}
+
+                        <div style="padding: 5px;">
+                            <table style="padding: 9px 4px; border: 1px solid #FF8900; width: 500px; margin-left:auto; margin-right:auto; text-align: center">
+                                <tr>
+                                    <th colspan="3" style="background-color: #FFF1DA">{{ retnicknames[l] }}</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">{{ retmileages[l] }} miles</td>
+                                    <td>{{ retbrands[l] }} {{ retmodels[l] }}</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                    {% endfor %}
+            </div>
+        </div>
+        <br>
+            <div class="column right" style="padding: 15px;">
+                <h4>Add Gear</h4>
+                    <form action="/gear" method="post">
+                        <div class="form-group">
+                            <input class="form-control" style="width: 240px;"  name="brand" placeholder="Brand" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" style="width: 240px;"  name="model" placeholder="Model" type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" style="width: 240px;"  name="nickname" placeholder="Nickname" type="text" required>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" type="submit">Add</button>
+                        </div>
+                    </form>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="column">
+                            <h4>Retire Gear</h4>
+                            <form action="/gear" method="post">
+                                <div class="form-group">
+                                     <select name="retireid">
+
+                                         {% for j in i %}
+
+                                             <option value="{{ ids[j] }}">{{ nicknames[j] }} ({{ ids[j] }})</option>
+
+                                         {% endfor %}
+
+                                    </select>
+                                </div>
+                                <div>
+                                    <button style="background-color: orange; border-color: orange" class="btn btn-primary" type="submit">Retire</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="column">
+                            <h4>Permanently Remove</h4>
+                            <form action="/gear" method="post" id="retform">
+                                <div class="form-group">
+                                    <select name="removeid">
+
+                                        {% for l in k %}
+
+                                            <option value="{{ retids[l] }}" id="retoption">{{ retnicknames[l] }} ({{ retids[l] }})</option>
+
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                                <div>
+                                    <button style="background-color: red; border-color: red" class="btn btn-primary" type="submit" onsubmit="return confirm('Are you sure you want to submit this form?');">Remove</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+    </div>
+
+{% endblock %}

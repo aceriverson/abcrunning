@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Weather
+{% endblock %}
+
+{% block main %}
+<h1>Your Forecast</h1>
+<table style="border: 1px solid #1C6EA4; width: 500px; margin-left:auto; margin-right:auto;">
+    <caption>Forecast</caption>
+    <tr>
+        <th style="background-color: #e3f2fd;" class="weathertabletext">Current Condition</th>
+        <th style="background-color: #e3f2fd;"class="weathertabletext">Current Temperature</th>
+        <th style="background-color: #e3f2fd;"class="weathertabletext">Current Windspeed</th>
+    </tr>
+    <tr>
+        <td style="background-color: white;" class="weathertabletext">{{ description }}</td>
+        <td style="background-color: white;" class="weathertabletext">{{ temp }}° F</td>
+        <td style="background-color: white;" class="weathertabletext">{{ wind }} mph</td>
+    </tr>
+</table>
+
+<br>
+
+<table style="border: 1px solid #1C6EA4; width: 500px; margin-left:auto; margin-right:auto; padding: 50px">
+    <caption>Safety Suggestion</caption>
+    <tr>
+        <th style="font-size: large; background-color: #e3f2fd;">Based on your Forecast:</th>
+        <td style="font-size: large; background-color: white;">{{ idrec }}</td>
+    </tr>
+</table>
+<br>
+<table style="border: 1px solid #1C6EA4; width: 500px; margin-left:auto; margin-right:auto;">
+    <caption>Clothing Suggestion</caption>
+    <tr style="border: 1px solid #1C6EA4; width: 500px; margin-left:auto; margin-right:auto;">
+        <th style="font-size: large; background-color: #e3f2fd;">Based on the Temperature:</th>
+        <td style="font-size: large; background-color:white;">{{ trec }}</td>
+    </tr>
+</table>
+{% endblock %}

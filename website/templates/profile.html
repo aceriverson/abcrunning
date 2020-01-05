@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <h1>{{ profname }}'s profile</h1>
+    <br>
+    <h5>Activities</h5>
+    <div>
+        <table style="border: 1px solid #1C6EA4;">
+            <caption style="padding: 15px">
+                {% if page > 1 %}
+                <a href="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/profile?userid={{ userid }}&page={{ backpage }}"><-back</a>
+                {% else %}
+                back
+                {% endif %}
+                <span style="display:inline-block; width: 5px;"></span>
+                <a href="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/profile?userid={{ userid }}&page={{ nextpage }}">next-></a>
+            </caption>
+            <th style="background-color: #e3f2fd;">Activity</th>
+            <th style="background-color: #e3f2fd;">Type</th>
+            <th style="background-color: #e3f2fd;">Distance</th>
+            <th style="background-color: #e3f2fd;">Pace</th>
+            <th style="background-color: #e3f2fd;">Time</th>
+            <th style="background-color: #e3f2fd;">Date</th>
+            {% for j in i %}
+                <tr style="padding: 5px">
+                    <td style="background-color:white;">
+                        <a href="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/activity?activityid={{ ids[j] }}">{{ names[j] }}</a>
+                    </td>
+                    <td style="background-color:white;">{{ runtypes[j] }}</td>
+                    <td style="background-color:white;"><b>{{ distances[j] }}</b> mi</td>
+                    <td style="background-color:white;"><b>{{ paces[j] }}</b>/mi</td>
+                    <td style="background-color:white;"><b>{{ times[j] }}</b></td>
+                    <td style="background-color:white;">{{ timestamps[j] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br>
+    <div class="row">
+        <div class="column">
+            <table style="border: 1px solid #1C6EA4; background-color: white; width: 500px; margin-left:auto; margin-right:auto;">
+                <caption>Lifetime Overview</caption>
+                <tr>
+                    <td style="text-align: right; padding: 10px">Total Distance:</td>
+                    <td style="font-weight: bold">{{ LifetimeDistance }} mi</td>
+                    <td style="text-align: right; padding: 10px">Average Pace:</td>
+                    <td style="font-weight: bold">{{ LifetimePace }}/mi</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding: 10px">Average Distance:</td>
+                    <td style="font-weight: bold">{{ avgdist }} mi</td>
+                    <td style="text-align: right; padding: 10px">Total Time:</td>
+                    <td style="font-weight: bold">{{ totaltime }} hours</td>
+                </tr>
+            </table>
+        </div>
+    <br>
+        <div class="column">
+            <table style="border: 1px solid #1C6EA4; background-color: white; width: 500px; margin-left:auto; margin-right:auto;">
+                <caption>Last 7 Days</caption>
+                <tr>
+                    <td style="text-align: right; padding: 10px">Total Distance:</td>
+                    <td style="font-weight: bold">{{ weekdist }} mi</td>
+                    <td style="text-align: right; padding: 10px">Average Pace:</td>
+                    <td style="font-weight: bold">{{ weekpace }}/mi</td>
+                </tr>
+                <tr>
+                    <td style="text-align: right; padding: 10px">Average Distance:</td>
+                    <td style="font-weight: bold">{{ avgweekdist }} mi</td>
+                    {% if hrmax != 'N/A' %}
+                    <td style="text-align: right; padding: 10px">Total Time:</td>
+                    <td style="font-weight: bold">{{ weektime }} hours</td>
+                    {% endif %}
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h5>Groups</h5>
+    <div>
+        <table style="border: 1px solid #1C6EA4;">
+            <th style="background-color: #e3f2fd;">Group Name</th>
+            <th style="background-color: #e3f2fd;">Description</th>
+            <th style="background-color: #e3f2fd;"></th>
+            {% for row in currentgroups %}
+                <tr style="padding: 5px">
+                    <td style="background-color:white;"><a href="/group?groupid={{ row["id"] }}&page=1">{{ row["name"] }}</a></td>
+                    <td style="background-color:white;">{{ row["bio"] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br>
+        <div>
+            {%if showchangepass == 1%}<a href="/password">Change Password</a>{%else%} {%endif%}
+        </div>
+        <br>
+    <h6>
+        <form>
+            <div class="form-group">
+                Share this Profile:  <input type="text" value="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/profile?userid={{ userid }}&page=1" readonly>
+            </div>
+        </form>
+    </h6>
+{% endblock %}

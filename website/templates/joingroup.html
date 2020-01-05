@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Join a Group
+{% endblock %}
+
+{% block main %}
+    <script>
+        window.onload = function() {
+        if(!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
+            }
+        }
+    </script>
+    <h1 style="padding: 15px">Join a Group</h1>
+    <form action="/joingroup" method="post">
+        <div class="form-group">
+            <input name="joingroupid" placeholder="Group ID" type="number" style="width: 120px">
+        </div>
+        <div>
+            <button class="btn btn-primary" type="submit">Join</button>
+        </div>
+    </form>
+    <br>
+    {% if alltest == False %}
+    <h5>Popular Groups</h5>
+    <table style="border: 1px solid #1C6EA4; width: 675px; margin-left:auto; margin-right:auto;">
+        <th style="background-color: #e3f2fd;">Group Name</th>
+        <th style="background-color: #e3f2fd;">Description</th>
+        <th style="background-color: #e3f2fd;"></th>
+        {% for row in rows %}
+        {% if row["id"] not in currentgroups %}
+            <tr>
+                <td style="background-color: white;">{{ row["name"] }}</td>
+                <td style="background-color: white;">{{ row["bio"] }}</td>
+                <td style="background-color: white;">
+                        <form action="http://c39b246a-e4b7-42a8-b7b5-311ddf429b1b-ide.cs50.xyz/joingroup" method="get">
+                            <button style="background-color: transparent; color: #1C6EA4"class="btn btn-primary" type="submit" name="{{ row["name"] }}" value="{{ row["id"] }}">Join</button>
+                        </form>
+                </td>
+            </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Leave a Group
+{% endblock %}
+
+{% block main %}
+    <h1>Leave a Group</h1>
+    <form action="/leavegroup" method="post">
+        <div class="form-group">
+            <select class="form-control" name="groupid" style="width: 240px;">
+                <option disabled="" selected="" value="">Group</option>
+                {% for row in rows %}
+                    <option value= "{{ row['id'] }}" >{{ row['name'] }}</option>
+                {% endfor %}
+             </select>
+        </div>
+        <button style="background-color: red; border: red"class="btn btn-primary" type="submit">Leave</button>
+    </form>
+    <br>
+    <body>Note: You cannot leave a group that you created</body>
+{% endblock %}
