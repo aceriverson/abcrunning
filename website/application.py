@@ -895,6 +895,9 @@ def weather():
 
         return render_template("forecast.html", username=username, temp=temp, wind=wind, description=description, idrec=idrec, trec=trec)
 
+if __name__ == '__main__':
+    app.run()
+
 
 def errorhandler(e): # Carried over from finance
     """Handle error"""
